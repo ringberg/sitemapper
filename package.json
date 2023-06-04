@@ -2,7 +2,7 @@
   "name": "@ringberg/sitemapper",
   "version": "0.0.1",
   "description": "",
-  "main": "src/index.ts",
+  "main": "dist/index.ts",
   "directories": {
     "test": "test"
   },
@@ -24,17 +24,17 @@
   },
   "homepage": "https://github.com/ringberg/sitemapper#readme",
   "devDependencies": {
-    "@types/eslint": "~8.40.0",
-    "@types/node": "~20.2.5",
-    "@types/tape": "~5.6.0",
-    "@typescript-eslint/eslint-plugin": "~5.59.7",
-    "@typescript-eslint/parser": "~5.59.7",
-    "eslint": "~8.41.0",
+    "@types/eslint": "^8.40.0",
+    "@types/node": "^20.2.5",
+    "@types/tape": "^5.6.0",
+    "@typescript-eslint/eslint-plugin": "^5.59.8",
+    "@typescript-eslint/parser": "^5.59.8",
+    "eslint": "^8.42.0",
     "eslint-config-prettier": "~8.8.0",
     "prettier": "~2.8.8",
     "tap-nyan": "~1.1.0",
     "tape": "~5.6.3",
-    "typescript": "~5.0.4"
+    "typescript": "~5.0.0"
   },
   "files": [
     "dist/**/*"
