@@ -2,10 +2,12 @@
   "name": "@ringberg/sitemapper",
   "version": "0.0.2",
   "description": "",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
+  "types": "dist/index.ts",
   "directories": {
     "test": "test"
   },
+  "module": "dist/index.js",
   "scripts": {
     "test": "npm run unittest && tsc --noemit && npm run prettier && npm run lint",
     "prettier": "prettier --check **/*.ts",
