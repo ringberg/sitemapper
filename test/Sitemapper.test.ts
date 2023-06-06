@@ -1,13 +1,14 @@
+import { PassThrough } from 'stream'
 import test from 'tape'
 import type {
-  SitemapItemAlternate,
   SitemapItem,
+  SitemapItemAlternate,
   SitemapperOptions,
 } from '../src'
-import { MAX_BYTES, MAX_ITEMS, SitemapStream } from '../src'
+import { MAX_BYTES, MAX_ITEMS, Sitemapper } from '../src'
 
 test('SitemapStream should write a sitemap as expected', (test) => {
-  const { sitemapStream } = setup()
+  const { sitemapper } = setup()
   let buf = Buffer.of()
 
   const lastMod = new Date('1970-01-01T00:00:00.000Z')
@@ -27,21 +28,25 @@ test('SitemapStream should write a sitemap as expected', (test) => {
     alternate.hreflang
   }" href="${alternate.href}"/></url></urlset>`
 
-  sitemapStream
+  const stream = new PassThrough()
     .on('data', (chunk: Buffer) => (buf = Buffer.concat([buf, chunk])))
     .on('finish', () => {
       const actual = buf.toString()
       test.equal(actual, expected)
       test.end()
     })
-  sitemapStream.insert(item)
-  sitemapStream.end()
+
+  async function* generator(): AsyncIterable<SitemapItem> {
+    yield item
+  }
+
+  sitemapper.streamGenerate(() => [stream], generator())
 })
 
 const dummyDomain = 'https://www.example.example'
 
 type Setup = {
-  sitemapStream: SitemapStream
+  sitemapper: Sitemapper
   options: SitemapperOptions
 }
 function setup(): Setup {
@@ -51,9 +56,9 @@ function setup(): Setup {
     head: '<urlset>',
     tail: '</urlset>',
   }
-  const sitemapStream = new SitemapStream(options)
+  const sitemapper = new Sitemapper(options)
   return {
-    sitemapStream,
+    sitemapper,
     options,
   }
 }

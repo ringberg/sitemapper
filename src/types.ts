@@ -11,4 +11,13 @@ export type SitemapItem = {
   alternates?: SitemapItemAlternate[]
 }
 
+export type IndexGenerator = {
+  readonly index: number
+  readonly bufferGenerator: AsyncGenerator<Buffer>
+}
+
+export type GetDestinations = (newIndex: number) => NodeJS.WritableStream[]
+
 export type SitemapItemAlternate = { hreflang: string; href: string }
+
+export type ChunkOrNewIndex = Buffer | number
